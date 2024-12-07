@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ubify/core/configs/theme/app_theme.dart';
+import 'package:ubify/presentation/splash/pages/splash.dart';
 
 //ROADMAP
 //set the theme on the app in tha main
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppTheme.lightTheme,
-      home: Container(),
+      home: const SplashPage(),
     );
   }
 }
