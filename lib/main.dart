@@ -18,6 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.lightTheme,
       home: const SplashPage(),
+      //hide debugging page
+      debugShowCheckedModeBanner: false,
     );
   }
 }
