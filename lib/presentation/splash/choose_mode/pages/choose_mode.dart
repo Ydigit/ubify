@@ -4,16 +4,13 @@ import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/app_colors.dart';
 import 'package:ubify/core/configs/theme/assets/app_images.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
-import 'package:ubify/presentation/splash/choose_mode/pages/choose_mode.dart';
 
-class GetStartedPage extends StatelessWidget {
-  const GetStartedPage({super.key});
-//need to develop more here
+class ChooseModePage extends StatelessWidget {
+  const ChooseModePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //stack lets us to draw the filter container after the image one
       body: Stack(
         children: [
           Container(
@@ -32,14 +29,14 @@ class GetStartedPage extends StatelessWidget {
               ),
           Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 20,
+              vertical: 40,
               horizontal: 40,
             ),
             child: Column(
               children: [
                 const SizedBox(
                   width: 10.0, // Para espaço horizontal
-                  height: 2.0, // Para espaço vertical
+                  height: 10.0, // Para espaço vertical
                 ),
                 Align(
                     alignment: Alignment.topCenter,
@@ -83,5 +80,4 @@ class GetStartedPage extends StatelessWidget {
       ),
     );
   }
-}//teste main hook
-
+}
