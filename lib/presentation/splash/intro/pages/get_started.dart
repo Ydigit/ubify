@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ubify/core/configs/theme/assets/app_images.dart';
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({super.key});
@@ -6,6 +7,17 @@ class GetStartedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill, image: AssetImage(AppImages.introBG))),
+          ),
+          Container(color: Colors.black.withOpacity(0.15)),
+        ],
+      ),
+    );
   }
 }

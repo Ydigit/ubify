@@ -27,6 +27,8 @@ class _SplashPageState extends State<SplashPage> {
     redirect();
   }
 
+  //called on the init state and builds
+  //after we call de redirect
   @override
   Widget build(BuildContext context) {
     return Scaffold(
