@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/app_colors.dart';
 import 'package:ubify/core/configs/theme/assets/app_images.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
@@ -14,35 +15,35 @@ class GetStartedPage extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 40,
               horizontal: 40,
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.fill, image: AssetImage(AppImages.introBG)),
             ),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 10.0, // Para espaço horizontal
                   height: 10.0, // Para espaço vertical
                 ),
                 Align(
                     alignment: Alignment.topCenter,
                     child: SvgPicture.asset(AppVectors.spotifyLogo)),
-                Spacer(),
-                Text(
+                const Spacer(),
+                const Text(
                   'Enjoy Listening to Music',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       fontSize: 18),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 21,
                 ),
-                Text(
+                const Text(
                   'Enjoy the best music from ubi!\n our special music here is "So fe Irmao"',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
@@ -50,6 +51,13 @@ class GetStartedPage extends StatelessWidget {
                       fontSize: 13),
                   textAlign: TextAlign.center,
                 ),
+                //button shld be bellow the 2 text promts
+                const SizedBox(
+                  height: 20,
+                ),
+                BasicAppButton(
+                    onPressed: () {}, //empty function but future nav
+                    title: 'Get Started'),
               ],
             ),
           ),
