@@ -56,7 +56,7 @@ class GetStartedPage extends StatelessWidget {
                   height: 20,
                 ),
                 BasicAppButton(
-                    onPressed: () {}, //empty function but future nav
+                    onPressed: () {}, //link here the nav for mode
                     title: 'Get Started'),
               ],
             ),
