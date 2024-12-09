@@ -60,33 +60,63 @@ class ChooseModePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //solving the all blured iamge for only the Container
-                    ClipOval(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                        child: Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                                color: Color(0xff30393C).withOpacity(0.5),
-                                shape: BoxShape.circle),
-                            //what is visible on the Container
-                            child: SvgPicture.asset(AppVectors.moon,
-                                fit: BoxFit.none)),
-                      ),
+                    Column(
+                      children: [
+                        ClipOval(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                            child: Container(
+                                height: 80,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                    color: Color(0xff30393C).withOpacity(0.5),
+                                    shape: BoxShape.circle),
+                                //what is visible on the Container
+                                child: SvgPicture.asset(AppVectors.moon,
+                                    fit: BoxFit.none)),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'Dark Mode',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
+                              color: AppColors.grey),
+                        ),
+                      ],
                     ),
                     const SizedBox(width: 40),
-                    ClipOval(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                        child: Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                                color: Color(0xff30393C).withOpacity(0.5),
-                                shape: BoxShape.circle),
-                            child: SvgPicture.asset(AppVectors.sun,
-                                fit: BoxFit.none)),
-                      ),
+                    Column(
+                      children: [
+                        Column(
+                          children: [
+                            ClipOval(
+                              child: BackdropFilter(
+                                filter:
+                                    ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                child: Container(
+                                    height: 80,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color(0xff30393C).withOpacity(0.5),
+                                        shape: BoxShape.circle),
+                                    child: SvgPicture.asset(AppVectors.sun,
+                                        fit: BoxFit.none)),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              'Light Mode',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
+                                  color: AppColors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
