@@ -36,6 +36,9 @@ class MyApp extends StatelessWidget {
       //this provider lets register the themeCubit
       //creates an instance of ThemeThemeCubit()
       //with providers ThemeCubit isntance is accessible for BuilContext that is what we want
+      //-------GLOBAL INJECTION-----------
+      //unique instance
+
       providers: [BlocProvider(create: (_) => ThemeCubit())],
       //listens to the changes generate by ThemeCubit instance
       //BlocBuilder is a widget that listens to Cubit changes

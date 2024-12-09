@@ -1,11 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/app_colors.dart';
 import 'package:ubify/core/configs/theme/assets/app_images.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
+import 'package:ubify/presentation/splash/choose_mode/bloc/theme_cubit.dart';
 
 class ChooseModePage extends StatelessWidget {
   const ChooseModePage({super.key});
@@ -60,31 +62,40 @@ class ChooseModePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //solving the all blured iamge for only the Container
-                    Column(
-                      children: [
-                        ClipOval(
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                            child: Container(
-                                height: 80,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: Color(0xff30393C).withOpacity(0.5),
-                                    shape: BoxShape.circle),
-                                //what is visible on the Container
-                                child: SvgPicture.asset(AppVectors.moon,
-                                    fit: BoxFit.none)),
+                    GestureDetector(
+                      onTap: () {
+                        //update
+                        //could create a new instance
+                        //ThemeCubit is globally Injected so we use contexr.read
+                        context.read<ThemeCubit>().updateTheme(ThemeMode.dark);
+                      },
+                      child: Column(
+                        children: [
+                          ClipOval(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xff30393C)
+                                          .withOpacity(0.5),
+                                      shape: BoxShape.circle),
+                                  //what is visible on the Container
+                                  child: SvgPicture.asset(AppVectors.moon,
+                                      fit: BoxFit.none)),
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          'Dark Mode',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: AppColors.grey),
-                        ),
-                      ],
+                          const SizedBox(height: 10),
+                          const Text(
+                            'Dark Mode',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: AppColors.grey),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(width: 40),
                     Column(
@@ -99,14 +110,14 @@ class ChooseModePage extends StatelessWidget {
                                     height: 80,
                                     width: 80,
                                     decoration: BoxDecoration(
-                                        color:
-                                            Color(0xff30393C).withOpacity(0.5),
+                                        color: const Color(0xff30393C)
+                                            .withOpacity(0.5),
                                         shape: BoxShape.circle),
                                     child: SvgPicture.asset(AppVectors.sun,
                                         fit: BoxFit.none)),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             const Text(
                               'Light Mode',
                               style: TextStyle(
