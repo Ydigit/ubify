@@ -33,7 +33,8 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SvgPicture.asset(AppVectors.logo),
+        child: SvgPicture.asset(AppVectors.blackSpotifyLogo,
+            width: 300, height: 300),
       ),
     );
   }
