@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ubify/common/widgets/button/basic_app_button.dart';
@@ -29,14 +31,14 @@ class ChooseModePage extends StatelessWidget {
               ),
           Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 40,
+              vertical: 20,
               horizontal: 40,
             ),
             child: Column(
               children: [
                 const SizedBox(
                   width: 10.0, // Para espaço horizontal
-                  height: 10.0, // Para espaço vertical
+                  height: 2.0, // Para espaço vertical
                 ),
                 Align(
                     alignment: Alignment.topCenter,
@@ -44,7 +46,7 @@ class ChooseModePage extends StatelessWidget {
                         width: 250.0, height: 250.0)),
                 const Spacer(),
                 const Text(
-                  'Enjoy Listening to Music',
+                  'Choose your theme mode',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -53,17 +55,43 @@ class ChooseModePage extends StatelessWidget {
                 const SizedBox(
                   height: 21,
                 ),
-                const Text(
-                  'Enjoy the best music from ubi!\n our special music here is "So fe Irmao"',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.grey,
-                      fontSize: 13),
-                  textAlign: TextAlign.center,
-                ),
                 //button shld be bellow the 2 text promts
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //solving the all blured iamge for only the Container
+                    ClipOval(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                                color: Color(0xff30393C).withOpacity(0.5),
+                                shape: BoxShape.circle),
+                            //what is visible on the Container
+                            child: SvgPicture.asset(AppVectors.moon,
+                                fit: BoxFit.none)),
+                      ),
+                    ),
+                    const SizedBox(width: 40),
+                    ClipOval(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                                color: Color(0xff30393C).withOpacity(0.5),
+                                shape: BoxShape.circle),
+                            child: SvgPicture.asset(AppVectors.sun,
+                                fit: BoxFit.none)),
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(
-                  height: 20,
+                  height: 50,
                 ),
                 BasicAppButton(
                     onPressed: () {
@@ -74,6 +102,9 @@ class ChooseModePage extends StatelessWidget {
                                   const ChooseModePage()));
                     }, //Create the ChoseModePage
                     title: 'Get Started'),
+                const SizedBox(
+                  height: 25,
+                ),
               ],
             ),
           ),

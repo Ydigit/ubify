@@ -66,7 +66,7 @@ class GetStartedPage extends StatelessWidget {
                 ),
                 //button shld be bellow the 2 text promts
                 const SizedBox(
-                  height: 20,
+                  height: 50,
                 ),
                 BasicAppButton(
                     onPressed: () {
@@ -77,6 +77,9 @@ class GetStartedPage extends StatelessWidget {
                                   const ChooseModePage()));
                     }, //Create the ChoseModePage
                     title: 'Get Started'),
+                const SizedBox(
+                  height: 25,
+                ),
               ],
             ),
           ),

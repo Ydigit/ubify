@@ -6,4 +6,6 @@ class AppVectors {
   // static const String logo2 = '${basePath}ubify_logo2$format';
   static const String spotifyLogo = '${basePath}spotify_logo$format';
   static const String blackSpotifyLogo = '${basePath}bk_ubify$format';
+  static const String moon = '${basePath}Moon$format';
+  static const String sun = '${basePath}Sun$format';
 }
