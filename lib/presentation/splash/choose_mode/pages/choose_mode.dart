@@ -20,7 +20,7 @@ class ChooseModePage extends StatelessWidget {
             ),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  fit: BoxFit.fill, image: AssetImage(AppImages.introBG)),
+                  fit: BoxFit.fill, image: AssetImage(AppImages.chooseModeBG)),
             ),
           ),
           //this container fills all the area from above container
@@ -40,7 +40,8 @@ class ChooseModePage extends StatelessWidget {
                 ),
                 Align(
                     alignment: Alignment.topCenter,
-                    child: SvgPicture.asset(AppVectors.blackSpotifyLogo)),
+                    child: SvgPicture.asset(AppVectors.blackSpotifyLogo,
+                        width: 250.0, height: 250.0)),
                 const Spacer(),
                 const Text(
                   'Enjoy Listening to Music',

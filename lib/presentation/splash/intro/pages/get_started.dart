@@ -43,7 +43,8 @@ class GetStartedPage extends StatelessWidget {
                 ),
                 Align(
                     alignment: Alignment.topCenter,
-                    child: SvgPicture.asset(AppVectors.blackSpotifyLogo)),
+                    child: SvgPicture.asset(AppVectors.blackSpotifyLogo,
+                        width: 250.0, height: 250.0)),
                 const Spacer(),
                 const Text(
                   'Enjoy Listening to Music',
