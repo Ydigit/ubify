@@ -131,7 +131,7 @@ class ChooseModePage extends StatelessWidget {
                               builder: (BuildContext context) =>
                                   const ChooseModePage()));
                     }, //Create the ChoseModePage
-                    title: 'Get Started'),
+                    title: 'Continue'),
                 const SizedBox(
                   height: 25,
                 ),
