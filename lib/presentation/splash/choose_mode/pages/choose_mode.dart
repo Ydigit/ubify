@@ -102,19 +102,26 @@ class ChooseModePage extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            ClipOval(
-                              child: BackdropFilter(
-                                filter:
-                                    ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                child: Container(
-                                    height: 80,
-                                    width: 80,
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xff30393C)
-                                            .withOpacity(0.5),
-                                        shape: BoxShape.circle),
-                                    child: SvgPicture.asset(AppVectors.sun,
-                                        fit: BoxFit.none)),
+                            GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<ThemeCubit>()
+                                    .updateTheme(ThemeMode.light);
+                              },
+                              child: ClipOval(
+                                child: BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: Container(
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xff30393C)
+                                              .withOpacity(0.5),
+                                          shape: BoxShape.circle),
+                                      child: SvgPicture.asset(AppVectors.sun,
+                                          fit: BoxFit.none)),
+                                ),
                               ),
                             ),
                             const SizedBox(height: 10),
