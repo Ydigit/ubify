@@ -29,3 +29,4 @@ class ThemeCubit extends HydratedCubit<ThemeMode> {
     return {'themeMode': state.index};
   }
 }
+//CHECK THE RETURNS FOR THIS 2 methods
