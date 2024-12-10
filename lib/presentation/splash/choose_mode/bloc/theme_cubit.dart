@@ -30,3 +30,5 @@ class ThemeCubit extends HydratedCubit<ThemeMode> {
   }
 }
 //CHECK THE RETURNS FOR THIS 2 methods
+//if not nessessary I will return the throwables for the emit func
+// but now i only need to reload the page and it changes tehe color
