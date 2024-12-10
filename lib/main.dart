@@ -9,6 +9,7 @@ import 'package:ubify/presentation/splash/pages/splash.dart';
 
 //ROADMAP
 //set the theme on the app in tha main
+//we updates the gradlle thingy
 
 Future<void> main() async {
   //garate bindings are configured befores using native APIs
