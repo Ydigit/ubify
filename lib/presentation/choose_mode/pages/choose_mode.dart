@@ -7,7 +7,8 @@ import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/app_colors.dart';
 import 'package:ubify/core/configs/theme/assets/app_images.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
-import 'package:ubify/presentation/splash/choose_mode/bloc/theme_cubit.dart';
+import 'package:ubify/presentation/auth/pages/signup_or_signin.dart';
+import 'package:ubify/presentation/choose_mode/bloc/theme_cubit.dart';
 
 class ChooseModePage extends StatelessWidget {
   const ChooseModePage({super.key});
@@ -147,7 +148,7 @@ class ChooseModePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  const ChooseModePage()));
+                                  const SignupOrSigninPage()));
                     }, //Create the ChoseModePage
                     title: 'Continue'),
                 const SizedBox(

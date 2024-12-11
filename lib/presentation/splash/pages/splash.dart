@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
-import 'package:ubify/presentation/splash/intro/pages/get_started.dart';
+import 'package:ubify/presentation/intro/pages/get_started.dart';
 
 //2sec until strtes page
 //convert stateless class to statefull
