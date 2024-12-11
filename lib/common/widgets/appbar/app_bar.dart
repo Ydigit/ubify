@@ -6,45 +6,55 @@ import 'package:ubify/presentation/auth/pages/signup_or_signin.dart';
 import 'package:ubify/presentation/choose_mode/pages/choose_mode.dart';
 
 class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
-  //cosntructs with this variable
-  final Widget? title; //can be null
+  final Widget? title;
+
   const BasicAppBar({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {
+    final double topPadding = MediaQuery.of(context).padding.top;
+
     return AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        //if title not null display title
-        //otherwise display ""
-        title: title ?? const Text(""),
-        leading: IconButton(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: true,
+      title: Padding(
+        padding: EdgeInsets.only(
+            top: topPadding + 20.0), // Adiciona espaço extra fixo
+        child: title ?? const Text(""),
+      ),
+      leading: Padding(
+        padding: EdgeInsets.only(top: topPadding), // Ajusta o botão "leading"
+        child: IconButton(
           onPressed: () {
-            Navigator.pop(context); //pops the pile nav
+            Navigator.pop(context);
           },
           icon: Container(
-            //ledding is a container
             height: 50,
             width: 50,
-            //this leadding is decorated by a BoxDecoration w color and shape
-            //decoration can act like a bg setting
             decoration: BoxDecoration(
-                color: context.isDarkMode
-                    ? Colors.white.withOpacity(0.03)
-                    : Colors.black.withOpacity(0.03),
-                shape: BoxShape.circle),
+              color: context.isDarkMode
+                  ? Colors.white.withOpacity(0.03)
+                  : Colors.black.withOpacity(0.03),
+              shape: BoxShape.circle,
+            ),
             child: Icon(
-              //Continer content is the Icon
               Icons.arrow_back_ios_new,
               size: 15,
               color: context.isDarkMode ? Colors.white : Colors.black,
             ),
           ),
-        ) //its composed by the defaault appbar
-        );
+        ),
+      ),
+    );
   }
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize {
+    final double topPadding =
+        MediaQueryData.fromWindow(WidgetsBinding.instance.window).padding.top;
+
+    // Adiciona espaço fixo extra para o título
+    return Size.fromHeight(kToolbarHeight + topPadding + 20.0);
+  }
 }
