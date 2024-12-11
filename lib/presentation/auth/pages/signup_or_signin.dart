@@ -5,6 +5,7 @@ import 'package:ubify/common/widgets/appbar/app_bar.dart';
 import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/assets/app_images.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
+import 'package:ubify/presentation/auth/pages/signup.dart';
 
 class SignupOrSigninPage extends StatelessWidget {
   const SignupOrSigninPage({super.key});
@@ -54,18 +55,21 @@ class SignupOrSigninPage extends StatelessWidget {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 5),
                       const Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.0), //horrizontal margin
-                        child: Text(
-                          "Ubify is a Portuguese audio streaming and media services provider",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13,
+                        child: Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Text(
+                            "Ubify is a Portuguese audio streaming and media services provider",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                            ),
+                            textAlign: TextAlign
+                                .center, // Centraliza o texto horizontalmente
                           ),
-                          textAlign: TextAlign
-                              .center, // Centraliza o texto horizontalmente
                         ),
                       ),
                       const SizedBox(height: 30),
@@ -75,7 +79,15 @@ class SignupOrSigninPage extends StatelessWidget {
                             flex: 1,
                             //uses all the space on the row
                             child: BasicAppButton(
-                                onPressed: () {}, title: "Register"),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              // ignore: prefer_const_constructors
+                                              SignupPage()));
+                                },
+                                title: "Register"),
                           ),
                           const SizedBox(
                             width: 20,

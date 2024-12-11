@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ubify/common/helpers/is_dark_mode.dart';
+import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
 import 'package:ubify/presentation/auth/pages/signup_or_signin.dart';
 import 'package:ubify/presentation/choose_mode/pages/choose_mode.dart';
 
-class BasicAppBar extends StatelessWidget {
-  const BasicAppBar({super.key});
+class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
+  //cosntructs with this variable
+  final Widget? title; //can be null
+  const BasicAppBar({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        //if title not null display title
+        //otherwise display ""
+        title: title ?? const Text(""),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context); //pops the pile nav
@@ -36,4 +43,8 @@ class BasicAppBar extends StatelessWidget {
         ) //its composed by the defaault appbar
         );
   }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
