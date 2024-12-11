@@ -3,7 +3,7 @@ import 'package:ubify/core/configs/theme/app_colors.dart';
 
 class BasicAppButton extends StatelessWidget {
   //no action on pressed
-  final VoidCallback onPressed;
+  final VoidCallback onPressed; //in a normal call i doesnt return nothing
   // double or null
   final double? height;
   //tital is a must for button apresentation
@@ -23,7 +23,7 @@ class BasicAppButton extends StatelessWidget {
         //visual part of the button is here
         child: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               fontWeight: FontWeight.w500,
               color: AppColors.white,
               fontSize: 25),
