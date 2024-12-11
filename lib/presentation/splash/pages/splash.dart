@@ -1,8 +1,6 @@
 //new struct
 //new splashPage
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
