@@ -55,6 +55,6 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize {
     final double topPadding =
         MediaQueryData.fromView(WidgetsBinding.instance.window).padding.top;
-    return Size.fromHeight(kToolbarHeight + topPadding + 40.0);
+    return Size.fromHeight(kToolbarHeight + topPadding + 50.0);
   }
 }

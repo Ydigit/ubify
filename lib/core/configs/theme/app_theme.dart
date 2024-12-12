@@ -9,6 +9,17 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.lightBackground,
     brightness: Brightness.light,
     fontFamily: 'Satoshi', //general controll
+    inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: Colors.transparent,
+        contentPadding: const EdgeInsets.all(30),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: Colors.black, //border black bg white
+            width: 0.4,
+          ),
+        )),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
@@ -26,6 +37,17 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.darkBackground,
     brightness: Brightness.dark, //controlls letters color also
     fontFamily: 'Satoshi', //general controll
+    inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: Colors.transparent,
+        contentPadding: const EdgeInsets.all(30),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: Colors.white, //border white bg black
+            width: 0.4,
+          ),
+        )),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0, //elevation affects 3 dimension z axis
