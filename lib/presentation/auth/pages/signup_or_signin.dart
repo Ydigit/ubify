@@ -5,6 +5,7 @@ import 'package:ubify/common/widgets/appbar/app_bar.dart';
 import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/assets/app_images.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
+import 'package:ubify/presentation/auth/pages/signin.dart';
 import 'package:ubify/presentation/auth/pages/signup.dart';
 
 class SignupOrSigninPage extends StatelessWidget {
@@ -95,7 +96,13 @@ class SignupOrSigninPage extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            const SigninPage()));
+                              },
                               child: Text(
                                 "Sign in",
                                 style: TextStyle(

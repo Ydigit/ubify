@@ -6,15 +6,15 @@ import 'package:ubify/common/widgets/appbar/app_bar.dart';
 import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/app_theme.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
-import 'package:ubify/presentation/auth/pages/signin.dart';
+import 'package:ubify/presentation/auth/pages/signup.dart';
 
-class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+class SigninPage extends StatelessWidget {
+  const SigninPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _signinText(context),
+      bottomNavigationBar: _signupText(context),
       //logo in appbar
       //we will pass one widget to BasicAppBar
       appBar: BasicAppBar(
@@ -32,24 +32,22 @@ class SignupPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _registerText(),
-            _registerInputFieldsSpace(),
-            _fullNameField(context),
-            _InputFieldsSpace(),
-            _emailField(context),
-            _InputFieldsSpace(),
+            _signInText(),
+            _signInInputFieldsSpace(),
+            _userNameOrEmailFielf(context),
+            _inputFieldsSpace(),
             _passwordField(context),
-            _InputFieldsSpace(),
-            BasicAppButton(onPressed: () {}, title: "Create Acounte"),
+            _signInInputFieldsSpace(),
+            BasicAppButton(onPressed: () {}, title: "Sign In"),
           ],
         ),
       ),
     );
   }
 
-  Widget _registerText() {
+  Widget _signInText() {
     return const Text(
-      "Register",
+      "Sign In",
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 25,
@@ -59,12 +57,12 @@ class SignupPage extends StatelessWidget {
   }
 
   //BUILDCONTEXT context lets us get access to the current theme and widget tree
-  Widget _fullNameField(BuildContext context) {
+  Widget _userNameOrEmailFielf(BuildContext context) {
     //TO ACCESS THE CURRENT THEME
     //as it is alredy defined I dont need to define anythin
     //and theme is alredy choosed
     return TextField(
-      decoration: const InputDecoration(hintText: "Full Name")
+      decoration: const InputDecoration(hintText: "Enter Username or Email")
           .applyDefaults(Theme.of(context).inputDecorationTheme),
     );
     //APLLY defaults it for
@@ -87,19 +85,19 @@ class SignupPage extends StatelessWidget {
     );
   }
 
-  Widget _registerInputFieldsSpace() {
+  Widget _signInInputFieldsSpace() {
     return const SizedBox(
       height: 50,
     );
   }
 
-  Widget _InputFieldsSpace() {
+  Widget _inputFieldsSpace() {
     return const SizedBox(
       height: 20,
     );
   }
 
-  Widget _signinText(BuildContext context) {
+  Widget _signupText(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 30,
@@ -108,7 +106,7 @@ class SignupPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Do you alredy have an account?",
+            "Not a Member?",
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
@@ -119,10 +117,11 @@ class SignupPage extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => SigninPage()));
+                    builder: (BuildContext context) => const SignupPage(),
+                  ));
             },
             child: Text(
-              "Sign in",
+              "Register Now!",
             ),
           )
         ],
