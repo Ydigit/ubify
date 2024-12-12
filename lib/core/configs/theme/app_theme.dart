@@ -9,6 +9,34 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.lightBackground,
     brightness: Brightness.light,
     fontFamily: 'Satoshi', //general controll
+    inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: Colors.transparent,
+        hintStyle: const TextStyle(
+          color: Color(0xff383838),
+          fontWeight: FontWeight.w500,
+        ),
+        contentPadding: const EdgeInsets.all(30),
+        //when border is focused no other is actived
+        //focused
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            //color for focused Input, this is rendered when nothing is on
+            color: Colors.black, //border white bg black
+            width: 0.4,
+          ),
+        ),
+        //activated when the textfield is on but no focused
+        //this is supposed to render in no focused
+        //no focused
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: Colors.black, //border white bg black
+            width: 0.4,
+          ),
+        )),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
@@ -26,6 +54,30 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.darkBackground,
     brightness: Brightness.dark, //controlls letters color also
     fontFamily: 'Satoshi', //general controll
+    inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: Colors.transparent,
+        hintStyle: const TextStyle(
+          color: Color(0xffA7A7A7),
+          fontWeight: FontWeight.w500,
+        ),
+        contentPadding: const EdgeInsets.all(30),
+        //when border is focused no other is actived
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: Colors.white, //border white bg black
+            width: 0.4,
+          ),
+        ),
+        //activated when the textfield is on but no focused
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: Colors.white, //border white bg black
+            width: 0.4,
+          ),
+        )),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0, //elevation affects 3 dimension z axis
