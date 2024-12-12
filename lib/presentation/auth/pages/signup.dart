@@ -6,6 +6,7 @@ import 'package:ubify/common/widgets/appbar/app_bar.dart';
 import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/app_theme.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
+import 'package:ubify/presentation/auth/pages/signin.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
@@ -114,7 +115,12 @@ class SignupPage extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => SigninPage()));
+            },
             child: Text(
               "Sign in",
             ),
