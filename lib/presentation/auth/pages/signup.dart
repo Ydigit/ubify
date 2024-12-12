@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ubify/common/widgets/appbar/app_bar.dart';
@@ -17,8 +16,8 @@ class SignupPage extends StatelessWidget {
         //so we remove it to construct in real time compilation
         title: SvgPicture.asset(
           AppVectors.blackSpotifyLogo,
-          width: 100,
-          height: 100,
+          width: 70,
+          height: 70,
         ),
       ),
       body: const Column(

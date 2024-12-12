@@ -49,7 +49,7 @@ class SignupOrSigninPage extends StatelessWidget {
                       const SizedBox(height: 20),
                       const Text(
                         "Enjoy Listening To Music",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
