@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ubify/common/widgets/appbar/app_bar.dart';
+import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/app_theme.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
 
@@ -31,7 +32,14 @@ class SignupPage extends StatelessWidget {
           children: [
             _registerText(),
             _registerInputFieldsSpace(),
-            _fullNameField(),
+            _fullNameField(context),
+            _InputFieldsSpace(),
+            _emailField(context),
+            _InputFieldsSpace(),
+            _passwordField(context),
+            _InputFieldsSpace(),
+            BasicAppButton(onPressed: () {}, title: "Create Acounte"),
+            _signinText(context)
           ],
         ),
       ),
@@ -49,10 +57,33 @@ class SignupPage extends StatelessWidget {
     );
   }
 
-  Widget _fullNameField() {
+  //BUILDCONTEXT context lets us get access to the current theme and widget tree
+  Widget _fullNameField(BuildContext context) {
+    //TO ACCESS THE CURRENT THEME
     //as it is alredy defined I dont need to define anythin
     //and theme is alredy choosed
-    return TextField();
+    return TextField(
+      decoration: const InputDecoration(hintText: "Full Name")
+          .applyDefaults(Theme.of(context).inputDecorationTheme),
+    );
+    //APLLY defaults it for
+    //use the propertyes from the context's theme on  context.inputDecorationTheme
+    //like color edges border for the dark and light theme
+    //if not defined we will define this input Decorations
+  }
+
+  Widget _emailField(BuildContext context) {
+    return TextField(
+      decoration: const InputDecoration(hintText: "Enter Email")
+          .applyDefaults(Theme.of(context).inputDecorationTheme),
+    );
+  }
+
+  Widget _passwordField(BuildContext context) {
+    return TextField(
+      decoration: const InputDecoration(hintText: "Enter Password")
+          .applyDefaults(Theme.of(context).inputDecorationTheme),
+    );
   }
 
   Widget _registerInputFieldsSpace() {
@@ -63,7 +94,21 @@ class SignupPage extends StatelessWidget {
 
   Widget _InputFieldsSpace() {
     return const SizedBox(
-      height: 15,
+      height: 20,
+    );
+  }
+
+  Widget _signinText(BuildContext context) {
+    return const Row(
+      children: [
+        Text(
+          "Do you alredy have an account?",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+          ),
+        ),
+      ],
     );
   }
 }
