@@ -13,10 +13,23 @@ class AppTheme {
         filled: true,
         fillColor: Colors.transparent,
         contentPadding: const EdgeInsets.all(30),
+        //when border is focused no other is actived
+        //focused
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            //color for focused Input, this is rendered when nothing is on
+            color: Colors.black, //border white bg black
+            width: 0.4,
+          ),
+        ),
+        //activated when the textfield is on but no focused
+        //this is supposed to render in no focused
+        //no focused
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(
-            color: Colors.black, //border black bg white
+            color: Colors.black, //border white bg black
             width: 0.4,
           ),
         )),
@@ -41,6 +54,15 @@ class AppTheme {
         filled: true,
         fillColor: Colors.transparent,
         contentPadding: const EdgeInsets.all(30),
+        //when border is focused no other is actived
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: Colors.white, //border white bg black
+            width: 0.4,
+          ),
+        ),
+        //activated when the textfield is on but no focused
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(
