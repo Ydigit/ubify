@@ -13,6 +13,7 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: _signinText(context),
       //logo in appbar
       //we will pass one widget to BasicAppBar
       appBar: BasicAppBar(
@@ -39,7 +40,6 @@ class SignupPage extends StatelessWidget {
             _passwordField(context),
             _InputFieldsSpace(),
             BasicAppButton(onPressed: () {}, title: "Create Acounte"),
-            _signinText(context)
           ],
         ),
       ),
@@ -99,16 +99,28 @@ class SignupPage extends StatelessWidget {
   }
 
   Widget _signinText(BuildContext context) {
-    return const Row(
-      children: [
-        Text(
-          "Do you alredy have an account?",
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 14,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 30,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Do you alredy have an account?",
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+            ),
           ),
-        ),
-      ],
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              "Sign in",
+            ),
+          )
+        ],
+      ),
     );
   }
 }
