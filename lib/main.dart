@@ -27,6 +27,8 @@ Future<void> main() async {
   //executes the app
   //we need to initialize the firebase here
   //async for blocking flow on firebase initialization
+  //for current platform selects the configurations for the Firebase
+  //option is a file and we select from there
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
