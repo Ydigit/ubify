@@ -1,9 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:ubify/core/configs/theme/app_theme.dart';
+import 'package:ubify/firebase_options.dart';
 import 'package:ubify/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:ubify/presentation/splash/pages/splash.dart';
 
@@ -23,6 +25,11 @@ Future<void> main() async {
         : await getApplicationDocumentsDirectory(),
   );
   //executes the app
+  //we need to initialize the firebase here
+  //async for blocking flow on firebase initialization
+  //for current platform selects the configurations for the Firebase
+  //option is a file and we select from there
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 

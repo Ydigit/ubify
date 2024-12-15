@@ -36,5 +36,12 @@ android/app/release
 # Generated documentation
 doc/api/
 
+#sesitive google data
+# Ignorar arquivos de configuração do Firebase
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+
+
 
 tore .
