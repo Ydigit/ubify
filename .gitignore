@@ -36,5 +36,9 @@ android/app/release
 # Generated documentation
 doc/api/
 
+#sesitive google data
+android/app/google-services.json
+
+
 
 tore .
