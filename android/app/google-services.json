@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1048736847617",
+    "project_id": "ubify-5304a",
+    "storage_bucket": "ubify-5304a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048736847617:android:5911c9e2cbcadcf71c2d00",
+        "android_client_info": {
+          "package_name": "com.ubi.ubify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbxYrZde5x5wDTNDG7YwPranc1YrQowgw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
