@@ -8,6 +8,7 @@ import 'package:ubify/core/configs/theme/app_theme.dart';
 import 'package:ubify/firebase_options.dart';
 import 'package:ubify/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:ubify/presentation/splash/pages/splash.dart';
+import 'package:ubify/service_locator.dart';
 
 //ROADMAP
 //set the theme on the app in tha main
@@ -30,6 +31,7 @@ Future<void> main() async {
   //for current platform selects the configurations for the Firebase
   //option is a file and we select from there
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await initilizeDependencies();
   runApp(const MyApp());
 }
 
