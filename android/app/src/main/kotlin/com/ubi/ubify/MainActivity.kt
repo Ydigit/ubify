@@ -1,4 +1,4 @@
-package com.example.ubify
+package com.ubi.ubify
 
 import io.flutter.embedding.android.FlutterActivity
 
