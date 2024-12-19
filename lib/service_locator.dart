@@ -18,5 +18,6 @@ Future<void> initilizeDependencies() async {
   sl.registerSingleton<AuthFirebaseService>(AuthFireBaseServiceImpl());
   //here register the repository
   //jump to next stage
+  //instance of sl (unique) calls the auth_impl
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
 }
