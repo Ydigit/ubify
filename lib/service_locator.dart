@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ubify/data/repository/auth/auth_repository_impl.dart';
 import 'package:ubify/data/sources/auth/auth_firebase_service.dart';
 import 'package:ubify/domain/repository/auth/auth.dart';
+import 'package:ubify/domain/usecases/auth/signup.dart';
 //here we cofigure the dependecy injections, this pattern helps with services on a application
 //sl is a global instnace to centralize the registration and access to the dependencies
 
@@ -20,4 +21,7 @@ Future<void> initilizeDependencies() async {
   //jump to next stage
   //instance of sl (unique) calls the auth_impl
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
+
+  //generates instance for this class
+  sl.registerSingleton<SignupUseCase>(SignupUseCase());
 }
