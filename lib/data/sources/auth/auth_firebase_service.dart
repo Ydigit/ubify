@@ -26,7 +26,7 @@ class AuthFireBaseServiceImpl extends AuthFirebaseService {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: createUserReq.email, password: createUserReq.password);
-      return Right("Signup was successfull");
+      return const Right("Signup was successfull");
     } on FirebaseAuthException catch (e) {
       String message = "";
       if (e.code == "weak-password") {

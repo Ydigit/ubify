@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ubify/common/helpers/is_dark_mode.dart';
-import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
 
 class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;

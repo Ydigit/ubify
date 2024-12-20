@@ -9,6 +9,7 @@ import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
 import 'package:ubify/data/models/auth/create_user_req.dart';
 import 'package:ubify/domain/usecases/auth/signup.dart';
 import 'package:ubify/presentation/auth/pages/signin.dart';
+import 'package:ubify/presentation/root/pages/root.dart';
 import 'package:ubify/service_locator.dart';
 
 class SignupPage extends StatelessWidget {
@@ -72,7 +73,17 @@ class SignupPage extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);
                     },
                     //right we got SUCCESS
-                    (r) {},
+                    //nav
+                    (r) {
+                      //remove until for no back arrow usage
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => const RootPage(),
+                          ),
+                          //all routes are erased
+                          (route) => false);
+                    },
                   );
                 },
                 title: "Create Acounte"),

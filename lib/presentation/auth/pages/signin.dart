@@ -105,7 +105,7 @@ class SigninPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             "Not a Member?",
             style: TextStyle(
               fontWeight: FontWeight.w500,
@@ -120,7 +120,7 @@ class SigninPage extends StatelessWidget {
                     builder: (BuildContext context) => SignupPage(),
                   ));
             },
-            child: Text(
+            child: const Text(
               "Register Now!",
             ),
           )
