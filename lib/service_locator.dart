@@ -7,7 +7,6 @@ import 'package:ubify/domain/usecases/auth/signup.dart';
 //sl is a global instnace to centralize the registration and access to the dependencies
 
 //
-final service = "Firebase";
 final sl = GetIt.instance;
 
 //initialize dependecies is used to regiter all dependencies that the app will need

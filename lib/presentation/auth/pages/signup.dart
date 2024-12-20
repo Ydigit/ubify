@@ -146,7 +146,7 @@ class SignupPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             "Do you alredy have an account?",
             style: TextStyle(
               fontWeight: FontWeight.w500,
@@ -158,9 +158,9 @@ class SignupPage extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => SigninPage()));
+                      builder: (BuildContext context) => const SigninPage()));
             },
-            child: Text(
+            child: const Text(
               "Sign in",
             ),
           )
