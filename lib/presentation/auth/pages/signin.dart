@@ -4,14 +4,22 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ubify/common/widgets/appbar/app_bar.dart';
 import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
+import 'package:ubify/data/models/auth/signin_user_req.dart';
+import 'package:ubify/domain/usecases/auth/signin.dart';
 import 'package:ubify/presentation/auth/pages/signup.dart';
+import 'package:ubify/presentation/root/pages/root.dart';
+import 'package:ubify/service_locator.dart';
 
 class SigninPage extends StatelessWidget {
-  const SigninPage({super.key});
+  SigninPage({super.key});
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //this way keyboard doenst oversize
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: _signupText(context),
       //logo in appbar
       //we will pass one widget to BasicAppBar
@@ -25,18 +33,59 @@ class SigninPage extends StatelessWidget {
         ),
       ),
       //dist from the appbar
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _signInText(),
             _signInInputFieldsSpace(),
-            _userNameOrEmailFielf(context),
+            // _userNameOrEmailFielf(context),
+            _emailField(context),
             _inputFieldsSpace(),
             _passwordField(context),
             _signInInputFieldsSpace(),
-            BasicAppButton(onPressed: () {}, title: "Sign In"),
+            BasicAppButton(
+                onPressed: () async {
+                  //async bcs I need to wait until conclude the call method
+                  //Program does not continue until I have the return
+                  //Result is Either, so we define next nav based on this
+                  //returns the either l or r
+                  var result = await sl<SigninUseCase>().call(
+                    //create instance userReq
+                    params: SigninUserReq(
+                      //.text access to text component not the string repr of the obj
+                      //toString here is redundant
+                      email: _email.text.toString(),
+                      password: _password.text.toString(),
+                    ),
+                  );
+                  result.fold(
+                    //left FAIL display message
+                    (l) {
+                      //carregar content
+                      var snackbar = SnackBar(
+                        content: Text(l),
+                        behavior: SnackBarBehavior.floating,
+                      );
+                      //render the snackbarrelated with scafflold and context
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    },
+                    //right we got SUCCESS
+                    //nav
+                    (r) {
+                      //remove until for no back arrow usage
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => const RootPage(),
+                          ),
+                          //all routes are erased
+                          (route) => false);
+                    },
+                  );
+                },
+                title: "Sign In"),
           ],
         ),
       ),
@@ -60,6 +109,7 @@ class SigninPage extends StatelessWidget {
     //as it is alredy defined I dont need to define anythin
     //and theme is alredy choosed
     return TextField(
+      // controller: _email,
       decoration: const InputDecoration(hintText: "Enter Username or Email")
           .applyDefaults(Theme.of(context).inputDecorationTheme),
     );
@@ -71,6 +121,7 @@ class SigninPage extends StatelessWidget {
 
   Widget _emailField(BuildContext context) {
     return TextField(
+      controller: _email,
       decoration: const InputDecoration(hintText: "Enter Email")
           .applyDefaults(Theme.of(context).inputDecorationTheme),
     );
@@ -78,6 +129,7 @@ class SigninPage extends StatelessWidget {
 
   Widget _passwordField(BuildContext context) {
     return TextField(
+      controller: _password,
       decoration: const InputDecoration(hintText: "Enter Password")
           .applyDefaults(Theme.of(context).inputDecorationTheme),
     );

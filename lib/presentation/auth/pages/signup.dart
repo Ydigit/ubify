@@ -36,8 +36,8 @@ class SignupPage extends StatelessWidget {
         ),
       ),
       //dist from the appbar
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -69,7 +69,10 @@ class SignupPage extends StatelessWidget {
                     //left FAIL display message
                     (l) {
                       //carregar content
-                      var snackbar = SnackBar(content: Text(l));
+                      var snackbar = SnackBar(
+                        content: Text(l),
+                        behavior: SnackBarBehavior.floating,
+                      );
                       //render the snackbarrelated with scafflold and context
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);
                     },
@@ -170,7 +173,7 @@ class SignupPage extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => const SigninPage()));
+                      builder: (BuildContext context) => SigninPage()));
             },
             child: const Text(
               "Sign in",
