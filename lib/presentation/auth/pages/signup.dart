@@ -22,6 +22,7 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: _signinText(context),
       //logo in appbar
       //we will pass one widget to BasicAppBar
