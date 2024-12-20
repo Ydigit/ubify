@@ -34,6 +34,7 @@ class AuthFireBaseServiceImpl extends AuthFirebaseService {
       } else if (e.code == "email-alredy-in-use") {
         message = "An account alredy exists with that email";
       }
+      //retorna a message
       return Left(message);
     }
   }
