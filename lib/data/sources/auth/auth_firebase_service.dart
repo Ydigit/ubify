@@ -22,10 +22,10 @@ class AuthFireBaseServiceImpl extends AuthFirebaseService {
       return const Right("Sign in was successfull");
     } on FirebaseAuthException catch (e) {
       String message = "";
-      if (e.code == "weak-password") {
-        message = "The password provided is too weak";
-      } else if (e.code == "email-alredy-in-use") {
-        message = "An account alredy exists with that email";
+      if (e.code == "invalid-email") {
+        message = "Not user found for that email";
+      } else if (e.code == "invalid-credential") {
+        message = "Wrong password provided fot that user";
       }
       //retorna a message
       return Left(message);
