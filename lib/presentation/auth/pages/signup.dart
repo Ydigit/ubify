@@ -6,14 +6,23 @@ import 'package:ubify/common/widgets/appbar/app_bar.dart';
 import 'package:ubify/common/widgets/button/basic_app_button.dart';
 import 'package:ubify/core/configs/theme/app_theme.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
+import 'package:ubify/data/models/auth/create_user_req.dart';
+import 'package:ubify/domain/usecases/auth/signup.dart';
 import 'package:ubify/presentation/auth/pages/signin.dart';
+import 'package:ubify/presentation/root/pages/root.dart';
+import 'package:ubify/service_locator.dart';
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+  SignupPage({super.key});
+  //controllers for textfield spaces
+  final TextEditingController _fullName = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: _signinText(context),
       //logo in appbar
       //we will pass one widget to BasicAppBar
@@ -27,8 +36,8 @@ class SignupPage extends StatelessWidget {
         ),
       ),
       //dist from the appbar
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -40,7 +49,48 @@ class SignupPage extends StatelessWidget {
             _InputFieldsSpace(),
             _passwordField(context),
             _InputFieldsSpace(),
-            BasicAppButton(onPressed: () {}, title: "Create Acounte"),
+            BasicAppButton(
+                onPressed: () async {
+                  //async bcs I need to wait until conclude the call method
+                  //Program does not continue until I have the return
+                  //Result is Either, so we define next nav based on this
+                  //returns the either l or r
+                  var result = await sl<SignupUseCase>().call(
+                    //create instance userReq
+                    params: CreateUserReq(
+                      //.text access to text component not the string repr of the obj
+                      //toString here is redundant
+                      fullName: _fullName.text.toString(),
+                      email: _email.text.toString(),
+                      password: _password.text.toString(),
+                    ),
+                  );
+                  result.fold(
+                    //left FAIL display message
+                    (l) {
+                      //carregar content
+                      var snackbar = SnackBar(
+                        content: Text(l),
+                        behavior: SnackBarBehavior.floating,
+                      );
+                      //render the snackbarrelated with scafflold and context
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    },
+                    //right we got SUCCESS
+                    //nav
+                    (r) {
+                      //remove until for no back arrow usage
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => const RootPage(),
+                          ),
+                          //all routes are erased
+                          (route) => false);
+                    },
+                  );
+                },
+                title: "Create Acounte"),
           ],
         ),
       ),
@@ -64,6 +114,8 @@ class SignupPage extends StatelessWidget {
     //as it is alredy defined I dont need to define anythin
     //and theme is alredy choosed
     return TextField(
+      //controllers access to the textfield states
+      controller: _fullName,
       decoration: const InputDecoration(hintText: "Full Name")
           .applyDefaults(Theme.of(context).inputDecorationTheme),
     );
@@ -75,6 +127,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _emailField(BuildContext context) {
     return TextField(
+      controller: _email,
       decoration: const InputDecoration(hintText: "Enter Email")
           .applyDefaults(Theme.of(context).inputDecorationTheme),
     );
@@ -82,6 +135,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _passwordField(BuildContext context) {
     return TextField(
+      controller: _password,
       decoration: const InputDecoration(hintText: "Enter Password")
           .applyDefaults(Theme.of(context).inputDecorationTheme),
     );
@@ -107,7 +161,7 @@ class SignupPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             "Do you alredy have an account?",
             style: TextStyle(
               fontWeight: FontWeight.w500,
@@ -121,7 +175,7 @@ class SignupPage extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (BuildContext context) => SigninPage()));
             },
-            child: Text(
+            child: const Text(
               "Sign in",
             ),
           )
