@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ubify/core/configs/theme/app_theme.dart';
 import 'package:ubify/firebase_options.dart';
 import 'package:ubify/presentation/choose_mode/bloc/theme_cubit.dart';
@@ -15,6 +16,8 @@ import 'package:ubify/service_locator.dart';
 //we updates the gradlle thingy
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   //garate bindings are configured befores using native APIs
   WidgetsFlutterBinding.ensureInitialized();
   //configures the storage used by HydrateBloc
@@ -31,6 +34,12 @@ Future<void> main() async {
   //for current platform selects the configurations for the Firebase
   //option is a file and we select from there
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // Inicialize Supabase
+  await Supabase.initialize(
+    url: 'https://cgkakfyfsmzsheiddmng.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNna2FrZnlmc216c2hlaWRkbW5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1Nzc4NzUsImV4cCI6MjA1MTE1Mzg3NX0.MSY6-_4UjhP-G9C2MdWJdk_1oM8ZuLVybqRLW8gAtwo',
+  );
   await initilizeDependencies();
   runApp(const MyApp());
 }
