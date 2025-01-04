@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ubify/core/configs/theme/app_theme.dart';
 import 'package:ubify/firebase_options.dart';
 import 'package:ubify/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:ubify/presentation/splash/pages/splash.dart';
 import 'package:ubify/service_locator.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //ROADMAP
 //set the theme on the app in tha main
 //we updates the gradlle thingy
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   //garate bindings are configured befores using native APIs
   WidgetsFlutterBinding.ensureInitialized();
   //configures the storage used by HydrateBloc
@@ -30,7 +34,16 @@ Future<void> main() async {
   //async for blocking flow on firebase initialization
   //for current platform selects the configurations for the Firebase
   //option is a file and we select from there
+
+  //load dotenv file with specific name
+  await dotenv.load(fileName: ".env");
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // Inicialize Supabase
+  await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+  );
   await initilizeDependencies();
   runApp(const MyApp());
 }
