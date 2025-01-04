@@ -48,6 +48,7 @@ dependencies:
   dartz:
   just_audio: ^0.9.25
   supabase_flutter: ^1.0.0
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,7 @@ flutter:
     - assets/fonts/
     - assets/images/
     - assets/vectors/
+    - assets/.env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

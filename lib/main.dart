@@ -10,6 +10,7 @@ import 'package:ubify/firebase_options.dart';
 import 'package:ubify/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:ubify/presentation/splash/pages/splash.dart';
 import 'package:ubify/service_locator.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //ROADMAP
 //set the theme on the app in tha main
@@ -33,12 +34,15 @@ Future<void> main() async {
   //async for blocking flow on firebase initialization
   //for current platform selects the configurations for the Firebase
   //option is a file and we select from there
+
+  //load dotenv file with specific name
+  await dotenv.load(fileName: ".env");
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // Inicialize Supabase
   await Supabase.initialize(
-    url: 'https://cgkakfyfsmzsheiddmng.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNna2FrZnlmc216c2hlaWRkbW5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1Nzc4NzUsImV4cCI6MjA1MTE1Mzg3NX0.MSY6-_4UjhP-G9C2MdWJdk_1oM8ZuLVybqRLW8gAtwo',
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
   await initilizeDependencies();
   runApp(const MyApp());
