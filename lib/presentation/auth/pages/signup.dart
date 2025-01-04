@@ -6,7 +6,7 @@ import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
 import 'package:ubify/data/models/auth/create_user_req.dart';
 import 'package:ubify/domain/usecases/auth/signup.dart';
 import 'package:ubify/presentation/auth/pages/signin.dart';
-import 'package:ubify/presentation/root/pages/root.dart';
+import 'package:ubify/presentation/home/pages/home.dart';
 import 'package:ubify/service_locator.dart';
 
 class SignupPage extends StatelessWidget {
@@ -80,7 +80,7 @@ class SignupPage extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => const RootPage(),
+                            builder: (BuildContext context) => const HomePage(),
                           ),
                           //all routes are erased
                           (route) => false);
