@@ -12,4 +12,10 @@ class SongRepositoryImpl extends SongsRepository {
   Future<Either<String, List<SongEntity>>> getNewsSongs() {
     return songSupabaseService.getNewsSongs();
   }
+
+  @override
+  Future<Either> getPlayList() {
+    // TODO: implement getPlayList
+    throw UnimplementedError();
+  }
 }

@@ -4,4 +4,6 @@ import 'package:dartz/dartz.dart';
 abstract class SongsRepository {
   //get news songs
   Future<Either> getNewsSongs();
+  Future<Either> getPlayList();
+  //only display songsfrom sb
 }
