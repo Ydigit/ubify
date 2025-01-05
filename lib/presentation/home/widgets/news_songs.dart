@@ -37,23 +37,21 @@ class NewsSongs extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         final coverUrl = AppURLs.getCoverUrl(songs[index].title);
-        debugPrint("Gerando URL para '${songs[index].title}': $coverUrl");
 
         return SizedBox(
           width: 160,
           child: Column(
             children: [
-              Expanded(
+              AspectRatio(
+                aspectRatio: 1, // Proporção 1:1
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(coverUrl),
-                      onError: (exception, stackTrace) {
-                        debugPrint(
-                            "Erro ao carregar a imagem: $coverUrl - $exception");
-                      },
-                      fit: BoxFit.cover,
+                      fit: BoxFit.cover, // Garante que preencha o espaço
                     ),
+                    borderRadius: BorderRadius.circular(
+                        8), // Opcional para bordas arredondadas
                   ),
                 ),
               ),
