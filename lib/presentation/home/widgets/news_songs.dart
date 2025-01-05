@@ -37,7 +37,7 @@ class NewsSongs extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         final coverUrl = AppURLs.getCoverUrl(songs[index].title);
-        debugPrint("URL da capa: $coverUrl");
+        debugPrint("Gerando URL para '${songs[index].title}': $coverUrl");
 
         return SizedBox(
           width: 160,
@@ -50,7 +50,7 @@ class NewsSongs extends StatelessWidget {
                       image: NetworkImage(coverUrl),
                       onError: (exception, stackTrace) {
                         debugPrint(
-                            "Erro ao carregar a imagem: $exception para ${songs[index].title}");
+                            "Erro ao carregar a imagem: $coverUrl - $exception");
                       },
                       fit: BoxFit.cover,
                     ),
