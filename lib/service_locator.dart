@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ubify/data/repository/auth/auth_repository_impl.dart';
 import 'package:ubify/data/repository/song/song_repository_impl.dart';
@@ -16,20 +17,38 @@ class SupabaseMusicService {
   SupabaseMusicService(this._client);
 
   Future<List<Map<String, dynamic>>> fetchSongs() async {
+    debugPrint("Iniciando consulta no Supabase...");
+
     final response = await _client
-        .from('songs')
-        .select()
-        .order('release_date', ascending: false)
-        .limit(3)
+        .from('songs') // Nome da tabela
+        .select() // Seleciona todas as colunas
+        .order('release_date',
+            ascending: false) // Ordena pela data de lançamento
+        .limit(3) // Limita a 3 músicas
         .execute();
 
+    // Log the status, message, and data
+    debugPrint("Resposta status: ${response.status}");
+    debugPrint("Resposta mensagem de erro: ${response.errorMessage}");
+    debugPrint("Resposta dados: ${response.data}");
+
     if (response.status >= 400) {
-      print('Erro ao buscar músicas');
+      debugPrint('Erro ao buscar músicas: ${response.errorMessage}');
+      return [];
+    }
+
+    // Check if data is null or empty
+    if (response.data == null || response.data.isEmpty) {
+      debugPrint('Nenhuma música encontrada.');
       return [];
     }
 
     return List<Map<String, dynamic>>.from(response.data as List<dynamic>);
   }
+}
+
+extension on PostgrestResponse {
+  get errorMessage => null;
 }
 
 final sl = GetIt.instance;
