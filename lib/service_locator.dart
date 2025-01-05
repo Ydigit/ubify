@@ -1,4 +1,3 @@
-//servicelocator
 import 'package:get_it/get_it.dart';
 import 'package:ubify/data/repository/auth/auth_repository_impl.dart';
 import 'package:ubify/data/repository/song/song_repository_impl.dart';
@@ -10,21 +9,18 @@ import 'package:ubify/domain/usecases/auth/signin.dart';
 import 'package:ubify/domain/usecases/auth/signup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ubify/domain/usecases/song/get_news_songs.dart';
-//here we cofigure the dependecy injections, this pattern helps with services on a application
-//sl is a global instnace to centralize the registration and access to the dependencies
 
-//
 class SupabaseMusicService {
-  final SupabaseClient _client = Supabase.instance.client;
+  final SupabaseClient _client;
 
-  // Busca músicas mais recentes
+  SupabaseMusicService(this._client);
+
   Future<List<Map<String, dynamic>>> fetchSongs() async {
     final response = await _client
-        .from('songs') // Nome da tabela
-        .select() // Seleciona todas as colunas
-        .order('release_date',
-            ascending: false) // Ordena pela data de lançamento
-        .limit(3) // Limita a 3 músicas
+        .from('songs')
+        .select()
+        .order('release_date', ascending: false)
+        .limit(3)
         .execute();
 
     if (response.status >= 400) {
@@ -38,35 +34,34 @@ class SupabaseMusicService {
 
 final sl = GetIt.instance;
 
-//initialize dependecies is used to regiter all dependencies that the app will need
-//
-//easyer to access
 Future<void> initilizeDependencies() async {
-  //singleton only one class is created
-  //here register the service
+  final supabaseClient = Supabase.instance.client;
+
+  sl.allowReassignment = true;
+
+  // Registrar SupabaseMusicService
+  sl.registerSingleton<SupabaseMusicService>(
+    SupabaseMusicService(supabaseClient),
+  );
+
+  // Registrar AuthFirebaseService
   sl.registerSingleton<AuthFirebaseService>(AuthFireBaseServiceImpl());
 
-  //para o supabase service:
-  sl.registerSingleton<SongSupabaseService>(SongSupabaseServiceImpl());
-  //here register the repository
-  //jump to next stage
-  //instance of sl (unique) calls the auth_impl
-  sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
+  // Registrar SongSupabaseServiceImpl
+  sl.registerSingleton<SongSupabaseService>(
+    SongSupabaseServiceImpl(sl<SupabaseMusicService>()),
+  );
 
-//song repo
-// Registrar SongRepositoryImpl com o argumento correto
+  // Registrar SongRepositoryImpl
   sl.registerSingleton<SongsRepository>(
     SongRepositoryImpl(sl<SongSupabaseService>()),
   );
 
-  //generates instance for this class
-  //this sl instance is used for the UI integration
+  // Registrar AuthRepository
+  sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
+
+  // Registrar casos de uso
   sl.registerSingleton<SignupUseCase>(SignupUseCase());
-
   sl.registerSingleton<SigninUseCase>(SigninUseCase());
-
-  //register usecase
   sl.registerSingleton<GetNewsSongsUseCase>(GetNewsSongsUseCase());
-
-  sl.registerSingleton<SupabaseMusicService>(SupabaseMusicService());
 }

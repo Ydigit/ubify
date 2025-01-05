@@ -10,6 +10,8 @@ abstract class SongSupabaseService {
 class SongSupabaseServiceImpl extends SongSupabaseService {
   final SupabaseMusicService musicService = sl<SupabaseMusicService>();
 
+  SongSupabaseServiceImpl(SupabaseMusicService supabaseMusicService);
+
   @override
   Future<Either<String, List<SongEntity>>> getNewsSongs() async {
     try {

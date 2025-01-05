@@ -37,6 +37,7 @@ class AuthFireBaseServiceImpl extends AuthFirebaseService {
   //como ele recebe um user com os parametros ja posso meter
   //service is alredy receiving the object, and we create the user
   //here I send the data to the Users Table
+
   @override
   Future<Either> signup(CreateUserReq createUserReq) async {
     try {
