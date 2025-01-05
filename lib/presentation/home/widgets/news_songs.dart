@@ -56,9 +56,18 @@ class NewsSongs extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.only(left: 3, right: 3),
+                child: Text(
+                  songs[index].title,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              SizedBox(height: 8),
               Text(
-                songs[index].title,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                songs[index].artist,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
                 overflow: TextOverflow.ellipsis,
               ),
             ],
