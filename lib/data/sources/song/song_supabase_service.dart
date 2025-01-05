@@ -1,27 +1,28 @@
 import 'package:dartz/dartz.dart';
+import 'package:ubify/domain/entities/song/song.dart';
+import 'package:ubify/data/models/song/song.dart';
+import 'package:ubify/service_locator.dart';
 
 abstract class SongSupabaseService {
-  Future<Either> getNewsSongs();
+  Future<Either<String, List<SongEntity>>> getNewsSongs();
 }
 
+class SongSupabaseServiceImpl extends SongSupabaseService {
+  final SupabaseMusicService musicService = sl<SupabaseMusicService>();
 
-class SongSupabaseServiceImpl extends SongSupabaseService{
   @override
-  Future<Either> getNewsSongs() {
-    try{List<SongEntity> songs = [];
-    var data = await async firebase.firestore.intance.collection.songsorderby("releasedate", descending: true).limit(3).get();
-    for (var element in data.docs){
-      var  songModel = songModel.fromJSON(element.data());
-      //lets convert song model to song entity
-      songs.add(
-        songModel.toentity()()
-      );
+  Future<Either<String, List<SongEntity>>> getNewsSongs() async {
+    try {
+      // Busca músicas usando o SupabaseMusicService
+      final songsData = await musicService.fetchSongs();
+
+      // Converte os dados em SongEntity
+      final songs =
+          songsData.map((song) => SongModel.fromJson(song).toEntity()).toList();
+
       return Right(songs);
-    }}catch(e){
-      return Left("An error occurred, Please try again.")
-
+    } catch (e) {
+      return Left('Erro ao buscar músicas: $e');
     }
-
-    //need to return  the either
   }
 }

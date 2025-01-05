@@ -1,4 +1,4 @@
-//service_locator
+//servicelocator
 import 'package:get_it/get_it.dart';
 import 'package:ubify/data/repository/auth/auth_repository_impl.dart';
 import 'package:ubify/data/repository/song/song_repository_impl.dart';
