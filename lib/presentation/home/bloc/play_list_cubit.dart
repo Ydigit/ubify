@@ -15,17 +15,10 @@ class PlayListCubit extends Cubit<PlayListState> {
     var returnedSongs = await sl<GetPlayListUseCase>().call();
 
     returnedSongs.fold((error) {
-      debugPrint("Falha ao carregar as musicas: $error");
+      debugPrint("Falha ao carregar as músicas: $error");
       emit(PlayListLoadFailure());
     }, (songs) {
-      if (songs.isEmpty) {
-        debugPrint("Nenhuma música encontrada.");
-      } else {
-        debugPrint("Músicas carregadas com sucesso: ${songs.length}");
-        for (var song in songs) {
-          debugPrint("Title da música: ${song.title}");
-        }
-      }
+      debugPrint("Músicas carregadas com sucesso: ${songs.length}");
       emit(PlayListLoaded(songs: songs));
     });
   }
