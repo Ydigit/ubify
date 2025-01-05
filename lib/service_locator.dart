@@ -1,49 +1,86 @@
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ubify/data/repository/auth/auth_repository_impl.dart';
+import 'package:ubify/data/repository/song/song_repository_impl.dart';
 import 'package:ubify/data/sources/auth/auth_firebase_service.dart';
+import 'package:ubify/data/sources/song/song_supabase_service.dart';
 import 'package:ubify/domain/repository/auth/auth.dart';
+import 'package:ubify/domain/repository/song/song.dart';
 import 'package:ubify/domain/usecases/auth/signin.dart';
 import 'package:ubify/domain/usecases/auth/signup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-//here we cofigure the dependecy injections, this pattern helps with services on a application
-//sl is a global instnace to centralize the registration and access to the dependencies
+import 'package:ubify/domain/usecases/song/get_news_songs.dart';
 
-//
 class SupabaseMusicService {
-  final _client = Supabase.instance.client;
+  final SupabaseClient _client;
 
-  // Listar músicas com metadados
+  SupabaseMusicService(this._client);
+
   Future<List<Map<String, dynamic>>> fetchSongs() async {
-    final response = await _client.from('songs').select();
+    debugPrint("Iniciando consulta no Supabase...");
 
-    if (response.error != null) {
-      print('Erro ao buscar músicas: ${response.error?.message}');
+    final response = await _client
+        .from('songs') // Nome da tabela
+        .select() // Seleciona todas as colunas
+        .order('release_date',
+            ascending: false) // Ordena pela data de lançamento
+        .limit(3) // Limita a 3 músicas
+        .execute();
+
+    // Log the status, message, and data
+    debugPrint("Resposta status: ${response.status}");
+    debugPrint("Resposta mensagem de erro: ${response.errorMessage}");
+    debugPrint("Resposta dados: ${response.data}");
+
+    if (response.status >= 400) {
+      debugPrint('Erro ao buscar músicas: ${response.errorMessage}');
       return [];
     }
 
-    return List<Map<String, dynamic>>.from(response.data);
+    // Check if data is null or empty
+    if (response.data == null || response.data.isEmpty) {
+      debugPrint('Nenhuma música encontrada.');
+      return [];
+    }
+
+    return List<Map<String, dynamic>>.from(response.data as List<dynamic>);
   }
+}
+
+extension on PostgrestResponse {
+  get errorMessage => null;
 }
 
 final sl = GetIt.instance;
 
-//initialize dependecies is used to regiter all dependencies that the app will need
-//
-//easyer to access
 Future<void> initilizeDependencies() async {
-  //singleton only one class is created
-  //here register the service
+  final supabaseClient = Supabase.instance.client;
+
+  sl.allowReassignment = true;
+
+  // Registrar SupabaseMusicService
+  sl.registerSingleton<SupabaseMusicService>(
+    SupabaseMusicService(supabaseClient),
+  );
+
+  // Registrar AuthFirebaseService
   sl.registerSingleton<AuthFirebaseService>(AuthFireBaseServiceImpl());
-  //here register the repository
-  //jump to next stage
-  //instance of sl (unique) calls the auth_impl
+
+  // Registrar SongSupabaseServiceImpl
+  sl.registerSingleton<SongSupabaseService>(
+    SongSupabaseServiceImpl(sl<SupabaseMusicService>()),
+  );
+
+  // Registrar SongRepositoryImpl
+  sl.registerSingleton<SongsRepository>(
+    SongRepositoryImpl(sl<SongSupabaseService>()),
+  );
+
+  // Registrar AuthRepository
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
 
-  //generates instance for this class
-  //this sl instance is used for the UI integration
+  // Registrar casos de uso
   sl.registerSingleton<SignupUseCase>(SignupUseCase());
-
   sl.registerSingleton<SigninUseCase>(SigninUseCase());
-
-  sl.registerSingleton<SupabaseMusicService>(SupabaseMusicService());
+  sl.registerSingleton<GetNewsSongsUseCase>(GetNewsSongsUseCase());
 }
