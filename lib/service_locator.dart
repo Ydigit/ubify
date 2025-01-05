@@ -15,18 +15,24 @@ import 'package:ubify/domain/usecases/song/get_news_songs.dart';
 
 //
 class SupabaseMusicService {
-  final _client = Supabase.instance.client;
+  final SupabaseClient _client = Supabase.instance.client;
 
-  // Listar músicas com metadados
+  // Busca músicas mais recentes
   Future<List<Map<String, dynamic>>> fetchSongs() async {
-    final response = await _client.from('songs').select();
+    final response = await _client
+        .from('songs') // Nome da tabela
+        .select() // Seleciona todas as colunas
+        .order('release_date',
+            ascending: false) // Ordena pela data de lançamento
+        .limit(3) // Limita a 3 músicas
+        .execute();
 
-    if (response.error != null) {
-      print('Erro ao buscar músicas: ${response.error?.message}');
+    if (response.status >= 400) {
+      print('Erro ao buscar músicas');
       return [];
     }
 
-    return List<Map<String, dynamic>>.from(response.data);
+    return List<Map<String, dynamic>>.from(response.data as List<dynamic>);
   }
 }
 
@@ -48,7 +54,10 @@ Future<void> initilizeDependencies() async {
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
 
 //song repo
-  sl.registerSingleton<SongsRepository>(SongRepositoryImpl());
+// Registrar SongRepositoryImpl com o argumento correto
+  sl.registerSingleton<SongsRepository>(
+    SongRepositoryImpl(sl<SongSupabaseService>()),
+  );
 
   //generates instance for this class
   //this sl instance is used for the UI integration
