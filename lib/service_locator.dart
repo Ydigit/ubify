@@ -10,6 +10,7 @@ import 'package:ubify/domain/usecases/auth/signin.dart';
 import 'package:ubify/domain/usecases/auth/signup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ubify/domain/usecases/song/get_news_songs.dart';
+import 'package:ubify/domain/usecases/song/get_play_list.dart';
 
 class SupabaseMusicService {
   final SupabaseClient _client;
@@ -25,6 +26,36 @@ class SupabaseMusicService {
         .order('release_date',
             ascending: false) // Ordena pela data de lançamento
         .limit(3) // Limita a 3 músicas
+        .execute();
+
+    // Log the status, message, and data
+    debugPrint("Resposta status: ${response.status}");
+    debugPrint("Resposta mensagem de erro: ${response.errorMessage}");
+    debugPrint("Resposta dados: ${response.data}");
+
+    if (response.status >= 400) {
+      debugPrint('Erro ao buscar músicas: ${response.errorMessage}');
+      return [];
+    }
+
+    // Check if data is null or empty
+    if (response.data == null || response.data.isEmpty) {
+      debugPrint('Nenhuma música encontrada.');
+      return [];
+    }
+
+    return List<Map<String, dynamic>>.from(response.data as List<dynamic>);
+  }
+
+  //get list func fetch musics:
+  Future<List<Map<String, dynamic>>> fetchListSongs() async {
+    debugPrint("Iniciando consulta no Supabase...");
+
+    final response = await _client
+        .from('songs') // Nome da tabela
+        .select() // Seleciona todas as colunas
+        .order('release_date',
+            ascending: false) // Ordena pela data de lançamento
         .execute();
 
     // Log the status, message, and data
@@ -83,4 +114,6 @@ Future<void> initilizeDependencies() async {
   sl.registerSingleton<SignupUseCase>(SignupUseCase());
   sl.registerSingleton<SigninUseCase>(SigninUseCase());
   sl.registerSingleton<GetNewsSongsUseCase>(GetNewsSongsUseCase());
+
+  sl.registerSingleton<GetPlayListUseCase>(GetPlayListUseCase());
 }

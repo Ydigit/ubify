@@ -22,18 +22,17 @@ class SongModel {
         : 0.0; // Convert to double safely
     releaseDate = (data['release_date'] != null)
         ? DateTime.tryParse(data['release_date']) // Parse safely
-        : null; // Keep null if parsing fails
+        : null;
   }
 }
 
-//extension to convert song model into song entity
 extension SongModelX on SongModel {
   SongEntity toEntity() {
     return SongEntity(
       title: title ?? 'Unknown Title', // Fallback if null
       artist: artist ?? 'Unknown Artist',
       duration: duration ?? 0.0,
-      releaseDate: releaseDate ?? DateTime.now(), // Use current date if null
+      releaseDate: releaseDate ?? DateTime.now(),
     );
   }
 }
