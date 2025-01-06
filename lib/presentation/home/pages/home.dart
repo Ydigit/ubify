@@ -60,9 +60,6 @@ class _HomePageState extends State<HomePage>
                 controller: _tabController,
               ),
             ),
-            const SizedBox(
-              height: 8,
-            ),
             PlayList(),
           ],
         )));
