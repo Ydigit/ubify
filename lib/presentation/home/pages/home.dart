@@ -7,6 +7,7 @@ import 'package:ubify/core/configs/theme/assets/app_images.dart';
 import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
 import 'package:ubify/presentation/auth/pages/signup_or_signin.dart';
 import 'package:ubify/presentation/home/widgets/news_songs.dart';
+import 'package:ubify/presentation/home/widgets/play_list.dart';
 
 //root class after login
 class HomePage extends StatefulWidget {
@@ -59,6 +60,7 @@ class _HomePageState extends State<HomePage>
                 controller: _tabController,
               ),
             ),
+            PlayList(),
           ],
         )));
   }

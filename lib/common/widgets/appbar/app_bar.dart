@@ -3,35 +3,42 @@ import 'package:ubify/common/helpers/is_dark_mode.dart';
 
 class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
+  final Widget? action;
   final bool hideBackArrow;
 
   const BasicAppBar({
     super.key,
     this.title,
+    this.action,
     this.hideBackArrow = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    //This  MediaQuery.of offers the height of the safe area
-    //returns sum of heights, bar and notches if applicable
-
+    // This MediaQuery.of offers the height of the safe area
+    // Returns sum of heights, bar, and notches if applicable
     final double topPadding = MediaQuery.of(context).padding.top;
-    //using the safearea for adjusting the content properly for avoiding notch areas
+
+    // Using the SafeArea for adjusting the content properly to avoid notch areas
     return SafeArea(
       child: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
+        // Title of the AppBar
         title: Padding(
-          //extra padding for for top
+          // Extra padding for the top
           padding: EdgeInsets.only(top: topPadding),
           child: title ?? const Text(""),
         ),
-        //here is the back Arrow button
-        //if hide is true return null else return the iconbutton
+        // Actions in the AppBar
+        actions: [
+          action ?? Container(),
+        ],
+        // Back Arrow button
+        // If hideBackArrow is true, return null; otherwise, return the IconButton
         leading: Padding(
-          padding: EdgeInsets.only(top: topPadding), // Ajusta o botão "leading"
+          padding: EdgeInsets.only(top: topPadding), // Adjusts the "leading" button
           child: hideBackArrow
               ? null
               : IconButton(
@@ -63,7 +70,7 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize {
     final double topPadding =
         MediaQueryData.fromView(WidgetsBinding.instance.window).padding.top;
-    //changed the height for the nav bar
+    // Changed the height for the nav bar
     return Size.fromHeight(kToolbarHeight + topPadding + 5.0);
   }
 }
