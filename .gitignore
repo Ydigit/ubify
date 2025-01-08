@@ -36,14 +36,60 @@ android/app/release
 # Generated documentation
 doc/api/
 
-#sesitive google data
-# Ignorar arquivos de configuração do Firebase
+# Sensitive data
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 
-#credentials
+# Credentials
 .env
 
-
-
+# Problematic file
 tore .
+
+# Flutter-specific
+build/
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+
+# iOS-specific
+ios/Flutter/Flutter.podspec
+ios/Pods/
+ios/Podfile.lock
+ios/Runner.xcworkspace/
+ios/DerivedData/
+ios/.symlinks/
+ios/build/
+ios/Flutter/AppFrameworkInfo.plist
+ios/Runner.xcodeproj/
+
+# Android-specific
+android/.gradle/
+android/app/build/
+android/local.properties
+android/app/src/debug/google-services.json
+
+# Credentials and sensitive data
+.env
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# IDE-related
+.idea/
+*.iml
+.vscode/
+
+# Miscellaneous
+*.log
+*.pyc
+*.class
+*.swp
+.DS_Store
+
+
+ios/Runner/Assets.xcassets/
+*.png
+*.plist
+*.storyboard
