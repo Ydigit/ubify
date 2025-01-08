@@ -33,8 +33,8 @@ ios/Flutter/Release.xcconfig  # Generated configuration for Release
 !ios/Runner.xcodeproj/xcshareddata/xcschemes/  # Include shared schemes
 
 # Exclude Icon/App images if they are generated automatically (otherwise remove these lines)
-*.appiconset/*.png
-*.imageset/*.png
+.appiconset/.png
+.imageset/.png
 
 # Logs and databases
 *.log
@@ -44,3 +44,7 @@ pubspec.lock  # Optional, if you want dependencies managed locally
 *.tmp
 *.swp
 *.swo
+
+linux/
+windows/
+tore .
