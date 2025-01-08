@@ -87,3 +87,9 @@ ios/Runner/GoogleService-Info.plist
 *.class
 *.swp
 .DS_Store
+
+
+ios/Runner/Assets.xcassets/
+*.png
+*.plist
+*.storyboard
