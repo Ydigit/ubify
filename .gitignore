@@ -43,7 +43,7 @@ ios/Runner/GoogleService-Info.plist
 
 #credentials
 .env
-
+firebase.json
 
 
 tore .
