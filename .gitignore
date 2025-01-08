@@ -14,6 +14,7 @@ linux/
 app.*.symbols
 app.*.map.json
 
+
 # IDE-related
 .idea/
 *.iml
@@ -43,6 +44,8 @@ ios/Runner/GoogleService-Info.plist
 
 #credentials
 .env
+
+
 
 
 
