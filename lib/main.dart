@@ -19,64 +19,57 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //garate bindings are configured befores using native APIs
-  WidgetsFlutterBinding.ensureInitialized();
-  //configures the storage used by HydrateBloc
+  // Configure HydratedBloc storage
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
-        //for web uses this webStorageDirectory
         ? HydratedStorage.webStorageDirectory
-        //here uses the getApplicationDocumentsDirectory aka local system storage
         : await getApplicationDocumentsDirectory(),
   );
-  //executes the app
-  //we need to initialize the firebase here
-  //async for blocking flow on firebase initialization
-  //for current platform selects the configurations for the Firebase
-  //option is a file and we select from there
 
-  //load dotenv file with specific name
+  // Load environment variables
   await dotenv.load(fileName: ".env");
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // Inicialize Supabase
+  // Firebase initialization with error handling for duplicate app issue
+  try {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  } catch (e) {
+    if (e.toString().contains('duplicate-app')) {
+      // If the Firebase app is already initialized, just log the error and continue
+      print('Firebase app already initialized.');
+    } else {
+      rethrow; // Rethrow any other initialization errors
+    }
+  }
+
+  // Initialize Supabase
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
+
+  // Initialize service locator (dependencies)
   await initilizeDependencies();
+
+  // Start the app
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      //lets register multiple Cubir/Bloc providers
-      //this provider lets register the themeCubit
-      //creates an instance of ThemeThemeCubit()
-      //with providers ThemeCubit isntance is accessible for BuilContext that is what we want
-      //-------GLOBAL INJECTION-----------
-      //unique instance
-
+      // Register Bloc providers (ThemeCubit)
       providers: [BlocProvider(create: (_) => ThemeCubit())],
-      //listens to the changes generate by ThemeCubit instance
-      //BlocBuilder is a widget that listens to Cubit changes
-      //listens to the state managed by the ThemeCubit his state is type ThemeMode
       child: BlocBuilder<ThemeCubit, ThemeMode>(
-        //BUILDER IS CALLED EVERYTHIME STATE OF THEMECUBIT CHANGES
-        //when the state of ThemeVubit changes MAterialApp is rebuilt
         builder: (context, mode) => MaterialApp(
-          //if changes the mode is the new themeMode of MAterialApp
-          theme: AppTheme.lightTheme, //light
-          themeMode: mode, //define here the themeMode
-          darkTheme: AppTheme.darkTheme, //darks
+          theme: AppTheme.lightTheme, // Light theme
+          themeMode: mode, // Switches based on ThemeCubit state
+          darkTheme: AppTheme.darkTheme, // Dark theme
           home: const SplashPage(),
-          //hide debugging page
-          debugShowCheckedModeBanner: false,
+          debugShowCheckedModeBanner: false, // Hide debug banner
         ),
       ),
     );
