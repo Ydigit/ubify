@@ -30,9 +30,9 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
 
   // Firebase initialization with error handling for duplicate app issue
-  try
-  {
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  try {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
   } catch (e) {
     if (e.toString().contains('duplicate-app')) {
       // If the Firebase app is already initialized, just log the error and continue
@@ -75,8 +75,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
