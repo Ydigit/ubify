@@ -5,4 +5,5 @@ abstract class SongsRepository {
   //get news songs
   Future<Either> getNewsSongs();
   Future<Either> getPlayList();
+  Future<Either> addOrRemoveFavoriteSongs();
 }

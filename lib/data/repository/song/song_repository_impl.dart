@@ -17,4 +17,9 @@ class SongRepositoryImpl extends SongsRepository {
   Future<Either> getPlayList() {
     return songSupabaseService.getPlayList();
   }
+
+  @override
+  Future<Either> addOrRemoveFavoriteSongs() {
+    throw UnimplementedError();
+  }
 }

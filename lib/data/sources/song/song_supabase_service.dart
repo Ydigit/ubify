@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ubify/domain/entities/song/song.dart';
 import 'package:ubify/data/models/song/song.dart';
 import 'package:ubify/service_locator.dart';
@@ -7,6 +8,8 @@ abstract class SongSupabaseService {
   Future<Either<String, List<SongEntity>>> getNewsSongs();
   //new method get playlist
   Future<Either<String, List<SongEntity>>> getPlayList();
+  //new method favorite songs
+  Future<Either> addOrRemoveFavoriteSong();
 }
 
 class SongSupabaseServiceImpl extends SongSupabaseService {
@@ -46,4 +49,10 @@ class SongSupabaseServiceImpl extends SongSupabaseService {
       return Left('Erro ao buscar músicas: $e');
     }
   }
+
+  @override
+  Future<Either> addOrRemoveFavoriteSong() {
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+    
 }
