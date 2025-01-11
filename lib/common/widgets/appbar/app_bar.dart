@@ -4,12 +4,14 @@ import 'package:ubify/common/helpers/is_dark_mode.dart';
 class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
   final Widget? action;
+  final Color? backgroundColor;
   final bool hideBackArrow;
 
   const BasicAppBar({
     super.key,
     this.title,
     this.action,
+    this.backgroundColor,
     this.hideBackArrow = false,
   });
 
@@ -22,7 +24,7 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
     // Using the SafeArea for adjusting the content properly to avoid notch areas
     return SafeArea(
       child: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: backgroundColor ?? Colors.transparent,
         elevation: 0,
         centerTitle: true,
         // Title of the AppBar
@@ -38,7 +40,8 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
         // Back Arrow button
         // If hideBackArrow is true, return null; otherwise, return the IconButton
         leading: Padding(
-          padding: EdgeInsets.only(top: topPadding), // Adjusts the "leading" button
+          padding:
+              EdgeInsets.only(top: topPadding), // Adjusts the "leading" button
           child: hideBackArrow
               ? null
               : IconButton(
