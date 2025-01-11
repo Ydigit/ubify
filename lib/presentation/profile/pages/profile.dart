@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ubify/common/helpers/is_dark_mode.dart';
 import 'package:ubify/common/widgets/appbar/app_bar.dart';
+import 'package:ubify/core/configs/theme/app_colors.dart';
 import 'package:ubify/presentation/profile/bloc/profile_info_cubit.dart';
 import 'package:ubify/presentation/profile/bloc/profile_info_state.dart';
 
@@ -13,7 +14,8 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BasicAppBar(
-        backgroundColor: Color(0xff2C2B2B),
+        backgroundColor:
+            context.isDarkMode ? AppColors.darkGrey : AppColors.lightBackground,
         title: Text('Profile'),
       ),
       body: Column(
