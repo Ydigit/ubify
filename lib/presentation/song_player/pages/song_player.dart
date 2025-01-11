@@ -120,7 +120,7 @@ class SongPlayerPage extends StatelessWidget {
         debugPrint('Current state: $state');
         return Column(
           children: [
-            Slider(´+
+            Slider(
               value: songCubit.songPosition.inSeconds.toDouble(),
               min: 0.0,
               max: songCubit.songDuration.inSeconds.toDouble(),
@@ -172,7 +172,8 @@ class SongPlayerPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     songCubit.playOrPauseSong();
-                    debugPrint('Play/Pause button tapped. Current state: ${songCubit.state}');
+                    debugPrint(
+                        'Play/Pause button tapped. Current state: ${songCubit.state}');
                   },
                   child: Container(
                     height: 60,
