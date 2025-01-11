@@ -5,11 +5,16 @@ class SongEntity {
   String artist;
   double duration; // Para o campo float4
   DateTime releaseDate; // Para o campo date
+  final bool isFavorite;
+  final String songId;
 
-  SongEntity({
-    required this.title,
-    required this.artist,
-    required this.duration,
-    required this.releaseDate,
-  });
+//type cast could go wrong because songId is from type uuid
+
+  SongEntity(
+      {required this.title,
+      required this.artist,
+      required this.duration,
+      required this.releaseDate,
+      required this.isFavorite,
+      required this.songId});
 }

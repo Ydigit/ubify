@@ -9,6 +9,9 @@ import 'package:ubify/presentation/home/bloc/play_list_cubit.dart';
 import 'package:ubify/presentation/home/bloc/play_list_state.dart';
 import 'package:ubify/presentation/home/pages/home.dart';
 import 'package:ubify/presentation/song_player/pages/song_player.dart';
+import 'package:ubify/common/widgets/favorite_button/favorite_button.dart';
+import 'package:ubify/common/bloc/favorite_button/favorite_button_cubit.dart';
+import 'package:ubify/common/bloc/favorite_button/favorite_button_state.dart';
 
 class PlayList extends StatelessWidget {
   const PlayList({super.key});
@@ -69,15 +72,14 @@ class PlayList extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return GestureDetector(
-          onTap: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (BuildContext context )
-              => SongPlayerPage(
-                songEntity: songs[index],
-              ))
-            );
-          },
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => SongPlayerPage(
+                            songEntity: songs[index],
+                          )));
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -135,14 +137,9 @@ class PlayList extends StatelessWidget {
                     const SizedBox(
                       width: 20,
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite_outline_outlined,
-                        size: 25,
-                        color: Colors.grey, // Use a predefined color instead of AppColors.darkGrey
-                      ),
-                    ),
+                    FavoriteButton(
+                      songEntity: songs[index],
+                    )
                   ],
                 )
               ],
