@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ubify/common/widgets/favorite_button/favorite_button.dart';
 import 'package:ubify/core/configs/constants/app_urls.dart';
 import 'package:ubify/domain/entities/song/song.dart';
 import 'package:ubify/presentation/song_player/bloc/song_player_cubit.dart';
@@ -35,7 +36,8 @@ class SongPlayerPage extends StatelessWidget {
           child: Column(
             children: [
               _songCover(context, coverUrl),
-              const SizedBox(height: 20), // Add space between the image and the text
+              const SizedBox(
+                  height: 20), // Add space between the image and the text
               _songDetail(),
               const SizedBox(height: 30),
               _songPlayer(context),
@@ -52,13 +54,15 @@ class SongPlayerPage extends StatelessWidget {
       child: Transform.translate(
         offset: const Offset(0, 10), // Pull the image down by 10 pixels
         child: Container(
-          height: MediaQuery.of(context).size.height / 2, // Make the image shorter
+          height:
+              MediaQuery.of(context).size.height / 2, // Make the image shorter
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(coverUrl),
               fit: BoxFit.cover, // Ensure the image covers the container
             ),
-            borderRadius: BorderRadius.circular(12), // Optional: Add rounded corners
+            borderRadius:
+                BorderRadius.circular(12), // Optional: Add rounded corners
           ),
         ),
       ),
@@ -70,7 +74,8 @@ class SongPlayerPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 16.0), // Move the text to the right by 16 pixels
+          padding: const EdgeInsets.only(
+              left: 16.0), // Move the text to the right by 16 pixels
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -93,16 +98,9 @@ class SongPlayerPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 10.0), // Move the button down by 10 pixels
-          child: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_outline_outlined,
-              size: 35,
-              color: Colors.grey, // Use a predefined color instead of AppColors.darkGrey
-            ),
-          ),
-        ),
+            padding: const EdgeInsets.only(
+                top: 10.0), // Move the button down by 10 pixels
+            child: FavoriteButton(songEntity: songEntity)),
       ],
     );
   }
@@ -113,9 +111,17 @@ class SongPlayerPage extends StatelessWidget {
         return Column(
           children: [
             Slider(
-              value: context.read<SongPlayerCubit>().songPosition.inSeconds.toDouble(),
+              value: context
+                  .read<SongPlayerCubit>()
+                  .songPosition
+                  .inSeconds
+                  .toDouble(),
               min: 0.0,
-              max: context.read<SongPlayerCubit>().songDuration.inSeconds.toDouble(),
+              max: context
+                  .read<SongPlayerCubit>()
+                  .songDuration
+                  .inSeconds
+                  .toDouble(),
               onChanged: (value) {},
             ),
             const SizedBox(height: 20),
