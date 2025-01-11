@@ -8,6 +8,7 @@ import 'package:ubify/core/configs/theme/assets/app_vectors.dart';
 import 'package:ubify/presentation/auth/pages/signup_or_signin.dart';
 import 'package:ubify/presentation/home/widgets/news_songs.dart';
 import 'package:ubify/presentation/home/widgets/play_list.dart';
+import 'package:ubify/presentation/profile/pages/profile.dart';
 
 //root class after login
 class HomePage extends StatefulWidget {
@@ -33,6 +34,15 @@ class _HomePageState extends State<HomePage>
         //appbar
         appBar: BasicAppBar(
           hideBackArrow: true,
+          action: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            const ProfilePage()));
+              },
+              icon: const Icon(Icons.person)),
           //removes cosnt from scaffold bcs tittle depends on external assets
           //so we remove it to construct in real time compilation
           //remove or jide the back button
