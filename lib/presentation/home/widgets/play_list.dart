@@ -72,14 +72,18 @@ class PlayList extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => SongPlayerPage(
-                            songEntity: songs[index],
-                          )));
-            },
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context )
+              => SongPlayerPage(
+                songEntity: songs[index],
+                songList: songs,
+                currentIndex: index,
+              ))
+            );
+          },
+
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

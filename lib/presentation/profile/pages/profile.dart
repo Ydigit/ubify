@@ -19,7 +19,8 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BasicAppBar(
-        backgroundColor: Color(0xff2C2B2B),
+        backgroundColor:
+            context.isDarkMode ? AppColors.darkGrey : AppColors.lightBackground,
         title: Text('Profile'),
       ),
       body: Column(

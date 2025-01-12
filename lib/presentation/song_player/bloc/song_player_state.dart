@@ -6,9 +6,11 @@ class SongPlayerLoaded extends SongPlayerState {}
 
 class SongPlayerFailure extends SongPlayerState {}
 
-class SongPlayingState extends SongPlayerState {}
+class SongPlayerStatusState extends SongPlayerState {
+  final bool isPlaying;
 
-class SongPausedState extends SongPlayerState {}
+  SongPlayerStatusState(this.isPlaying);
+}
 
 class SongPlayerPositionUpdated extends SongPlayerState {
   final Duration position;

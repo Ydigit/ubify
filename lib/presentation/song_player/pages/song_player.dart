@@ -6,11 +6,19 @@ import 'package:ubify/domain/entities/song/song.dart';
 import 'package:ubify/presentation/song_player/bloc/song_player_cubit.dart';
 import 'package:ubify/presentation/song_player/bloc/song_player_state.dart';
 import 'package:ubify/core/configs/theme/app_colors.dart';
+import 'package:just_audio/just_audio.dart';
 
 class SongPlayerPage extends StatelessWidget {
   final SongEntity songEntity;
+  final List<SongEntity> songList;
+  final int currentIndex;
 
-  const SongPlayerPage({Key? key, required this.songEntity}) : super(key: key);
+  const SongPlayerPage({
+    Key? key,
+    required this.songEntity,
+    required this.songList,
+    required this.currentIndex,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +39,7 @@ class SongPlayerPage extends StatelessWidget {
         ],
       ),
       body: BlocProvider(
-        create: (_) => SongPlayerCubit()..loadSong(songUrl),
+        create: (_) => SongPlayerCubit(AudioPlayer())..loadSong(songUrl),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -108,20 +116,14 @@ class SongPlayerPage extends StatelessWidget {
   Widget _songPlayer(BuildContext context) {
     return BlocBuilder<SongPlayerCubit, SongPlayerState>(
       builder: (context, state) {
+        final songCubit = context.read<SongPlayerCubit>();
+        debugPrint('Current state: $state');
         return Column(
           children: [
             Slider(
-              value: context
-                  .read<SongPlayerCubit>()
-                  .songPosition
-                  .inSeconds
-                  .toDouble(),
+              value: songCubit.songPosition.inSeconds.toDouble(),
               min: 0.0,
-              max: context
-                  .read<SongPlayerCubit>()
-                  .songDuration
-                  .inSeconds
-                  .toDouble(),
+              max: songCubit.songDuration.inSeconds.toDouble(),
               onChanged: (value) {},
             ),
             const SizedBox(height: 20),
@@ -131,37 +133,84 @@ class SongPlayerPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: Text(
-                    formatDuration(
-                      context.read<SongPlayerCubit>().songPosition,
-                    ),
+                    formatDuration(songCubit.songPosition),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Text(
-                    formatDuration(
-                      context.read<SongPlayerCubit>().songDuration,
-                    ),
+                    formatDuration(songCubit.songDuration),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                context.read<SongPlayerCubit>().playOrPauseSong();
-              },
-              child: Container(
-                height: 60,
-                width: 60,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.primary,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.skip_previous),
+                  onPressed: () {
+                    if (currentIndex > 0) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SongPlayerPage(
+                            songEntity: songList[currentIndex - 1],
+                            songList: songList,
+                            currentIndex: currentIndex - 1,
+                          ),
+                        ),
+                      );
+                    }
+                  },
                 ),
-                child: Icon(
-                  state is SongPlayingState ? Icons.pause : Icons.play_arrow,
+                IconButton(
+                  icon: const Icon(Icons.replay_10),
+                  onPressed: songCubit.skip10SecondsBack,
                 ),
-              ),
+                GestureDetector(
+                  onTap: () {
+                    songCubit.playOrPauseSong();
+                    debugPrint(
+                        'Play/Pause button tapped. Current state: ${songCubit.state}');
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 60,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.primary,
+                    ),
+                    child: Icon(
+                      songCubit.isPlaying() ? Icons.pause : Icons.play_arrow,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.forward_10),
+                  onPressed: songCubit.skip10Seconds,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.skip_next),
+                  onPressed: () {
+                    if (currentIndex < songList.length - 1) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SongPlayerPage(
+                            songEntity: songList[currentIndex + 1],
+                            songList: songList,
+                            currentIndex: currentIndex + 1,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
           ],
         );
