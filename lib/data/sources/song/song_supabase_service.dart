@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -16,6 +17,8 @@ abstract class SongSupabaseService {
   Future<Either> addOrRemoveFavoriteSong(String songId);
   //favorite song method
   Future<bool> isFavoriteSong(String songId);
+  //user favorite songs
+  Future<Either> getUserFavoriteSongs();
 }
 
 class SongSupabaseServiceImpl extends SongSupabaseService {
@@ -200,6 +203,63 @@ class SongSupabaseServiceImpl extends SongSupabaseService {
       }
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  Future<Either> getUserFavoriteSongs() async {
+    try {
+      //
+      final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      var user = firebaseAuth.currentUser;
+      var userEmail = user?.email;
+      List<SongEntity> favoriteSongs = [];
+
+      debugPrint('Authenticated user email: $userEmail');
+
+      final supabase = Supabase.instance.client;
+
+      final response = await supabase
+          .from('Users')
+          .select('id')
+          .eq('email', userEmail)
+          .single()
+          .execute();
+
+      final userData = response.data;
+
+      String userId = userData['id'];
+      debugPrint(userId);
+
+      final favoritesSnapshot = await supabase
+          .from('favorites')
+          .select('song_id')
+          .eq('user_id', userId)
+          .execute();
+
+      //may it would be need to get the detaiç
+
+      final favoriteData = favoritesSnapshot.data;
+
+      for (var element in favoriteData) {
+        String songId = element['song_id'];
+
+        final song = await supabase
+            .from('songs')
+            .select()
+            .eq('id', songId)
+            .single()
+            .execute();
+
+        SongModel songModel = SongModel.fromJson(song.data!);
+        songModel.isFavorite = true;
+        songModel.songId = songId;
+        favoriteSongs.add(songModel.toEntity());
+      }
+
+      return Right(favoriteSongs);
+    } catch (e) {
+      return Left('An error as occurred');
     }
   }
 }

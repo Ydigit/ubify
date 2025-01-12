@@ -10,6 +10,7 @@ import 'package:ubify/domain/usecases/auth/signin.dart';
 import 'package:ubify/domain/usecases/auth/signup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ubify/domain/usecases/song/add_or_remove_favorites_song.dart';
+import 'package:ubify/domain/usecases/song/get_favorite_songs.dart';
 import 'package:ubify/domain/usecases/song/get_news_songs.dart';
 import 'package:ubify/domain/usecases/song/get_play_list.dart';
 import 'package:ubify/domain/usecases/song/is_favorite_song.dart';
@@ -126,4 +127,6 @@ Future<void> initilizeDependencies() async {
   sl.registerSingleton<IsFavoriteSongUseCase>(IsFavoriteSongUseCase());
 
   sl.registerSingleton<GetUserUseCase>(GetUserUseCase());
+
+  sl.registerSingleton<GetFavoriteSongsUseCase>(GetFavoriteSongsUseCase());
 }
