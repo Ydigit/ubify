@@ -11,6 +11,7 @@ import 'package:ubify/presentation/profile/bloc/profile_info_cubit.dart';
 import 'package:ubify/presentation/profile/bloc/profile_info_state.dart';
 import 'package:ubify/presentation/home/widgets/news_songs.dart';
 import 'package:ubify/presentation/song_player/pages/song_player.dart';
+import 'package:ubify/core/configs/theme/app_colors.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -116,12 +117,17 @@ class ProfilePage extends StatelessWidget {
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        SongPlayerPage(
-                                            songEntity:
-                                                state.favoriteSongs[index])));
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    SongPlayerPage(
+                                  songEntity: state.favoriteSongs[index],
+                                  songList:
+                                      state.favoriteSongs, // Pass the song list
+                                  currentIndex: index, // Pass the current index
+                                ),
+                              ),
+                            );
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
