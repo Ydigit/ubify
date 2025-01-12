@@ -105,10 +105,6 @@ class SongPlayerPage extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
-            padding: const EdgeInsets.only(
-                top: 10.0), // Move the button down by 10 pixels
-            child: FavoriteButton(songEntity: songEntity)),
       ],
     );
   }
